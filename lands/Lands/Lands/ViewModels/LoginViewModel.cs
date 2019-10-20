@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace Lands.ViewModels
 {
     using GalaSoft.MvvmLight.Command;
     using System.ComponentModel;
     using System.Windows.Input;
     using Xamarin.Forms;
+    using Views;
 
     public class LoginViewModel : BaseViewModel
     {
@@ -19,7 +17,17 @@ namespace Lands.ViewModels
         #endregion
 
         #region Properties
-        public string Email { get; set; }
+        public string Email 
+        {
+            get
+            {
+                return this.email;
+            }
+            set
+            {
+                SetValue(ref this.email, value);
+            }
+        }
         public string Password
         {
             get
@@ -112,11 +120,11 @@ namespace Lands.ViewModels
             this.IsRunning = false;
             this.IsEnabled = true;
 
-            await Application.Current.MainPage.DisplayAlert(
-                "Información",
-                "E-mail y Contraseña correctos!",
-                "Accept");
-            return;
+            this.email = string.Empty;
+            this.password = string.Empty;
+
+            MainViewModel.GetInstance().Lands = new LandsViewModel();
+            await Application.Current.MainPage.Navigation.PushAsync(new LandsPage());
         }
         #endregion
     }
