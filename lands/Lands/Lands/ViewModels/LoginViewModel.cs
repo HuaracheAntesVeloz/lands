@@ -9,12 +9,8 @@ namespace Lands.ViewModels
     using System.Windows.Input;
     using Xamarin.Forms;
 
-    public class LoginViewModel : INotifyPropertyChanged
+    public class LoginViewModel : BaseViewModel
     {
-        #region Events
-        public event PropertyChangedEventHandler PropertyChanged;
-        #endregion
-
         #region Attributes
         private string email;
         private string password;
@@ -28,34 +24,22 @@ namespace Lands.ViewModels
         {
             get
             {
-                return password;
+                return this.password;
             }
             set
             {
-                if (this.password != value)
-                {
-                    this.password = value;
-                    PropertyChanged?.Invoke(
-                        this,
-                        new PropertyChangedEventArgs(nameof(Password)));
-                }
+                SetValue(ref this.password, value);
             } 
         }
         public bool IsRunning 
         {
             get
             {
-                return isRunning;
+                return this.isRunning;
             }
             set
             {
-                if (this.isRunning != value)
-                {
-                    this.isRunning = value;
-                    PropertyChanged?.Invoke(
-                        this,
-                        new PropertyChangedEventArgs(nameof(IsRunning)));
-                }
+                SetValue(ref this.isRunning, value);
             }
         }
         public bool IsRemembered { get; set; }
@@ -63,17 +47,11 @@ namespace Lands.ViewModels
         {
             get
             {
-                return isEnabled;
+                return this.isEnabled;
             }
             set
             {
-                if (this.isEnabled != value)
-                {
-                    this.isEnabled = value;
-                    PropertyChanged?.Invoke(
-                        this,
-                        new PropertyChangedEventArgs(nameof(IsEnabled)));
-                }
+                SetValue(ref this.isEnabled, value);
             }
         }
         #endregion
