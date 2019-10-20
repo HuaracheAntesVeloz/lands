@@ -88,6 +88,7 @@
                         CornerRadius="15"
                         Text="Acceder"
                         Command="{Binding LoginCommand}"
+                        IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
                         HorizontalOptions="FillAndExpand">
                     </Button>
                     <Button
@@ -95,6 +96,7 @@
                         CornerRadius="15"
                         Text="Registrar"
                         TextColor="White"
+                        IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
                         HorizontalOptions="FillAndExpand">
                     </Button>
                 </StackLayout>
