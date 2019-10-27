@@ -70,6 +70,10 @@ namespace Lands.ViewModels
             this.IsRemembered = true;
             this.IsEnabled = true;
 
+            this.Email = "jerodrig001@gmail.com";
+            this.Password = "1234";
+
+            // http://restcountries.eu/rest/v2/all
         }
         #endregion
 
@@ -120,8 +124,8 @@ namespace Lands.ViewModels
             this.IsRunning = false;
             this.IsEnabled = true;
 
-            this.email = string.Empty;
-            this.password = string.Empty;
+            this.Email = string.Empty;
+            this.Password = string.Empty;
 
             MainViewModel.GetInstance().Lands = new LandsViewModel();
             await Application.Current.MainPage.Navigation.PushAsync(new LandsPage());
