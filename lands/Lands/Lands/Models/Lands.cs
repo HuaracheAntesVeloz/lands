@@ -15,7 +15,7 @@ namespace Lands.Models
         [JsonProperty(PropertyName = "alpha3Code")]
         public string Alpha3Code { get; set; }
         [JsonProperty(PropertyName = "callingCodes")]
-        public List<string> callingCodes { get; set; }
+        public List<string> CallingCodes { get; set; }
         [JsonProperty(PropertyName = "capital")]
         public string Capital { get; set; }
         [JsonProperty(PropertyName = "altSpellings")]
