@@ -142,4 +142,7 @@
   <ItemGroup>
     <BundleResource Include="Resources\LogoTwitter.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_launcher.png" />
+  </ItemGroup>
 </Project>
