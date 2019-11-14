@@ -145,4 +145,19 @@
   <ItemGroup>
     <BundleResource Include="Resources\ic_launcher.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_colindancias.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_information.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_languages.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_moneda.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_setraduce.png" />
+  </ItemGroup>
 </Project>
