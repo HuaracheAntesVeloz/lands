@@ -2,13 +2,18 @@
 namespace Lands.ViewModels
 {
     using GalaSoft.MvvmLight.Command;
-    using System.ComponentModel;
     using System.Windows.Input;
     using Xamarin.Forms;
     using Views;
+    using Services;
+    using Helpers;
 
     public class LoginViewModel : BaseViewModel
     {
+        #region Services
+        private ApiService apiService;
+        #endregion
+
         #region Attributes
         private string email;
         private string password;
@@ -67,11 +72,13 @@ namespace Lands.ViewModels
         #region Constructors
         public LoginViewModel()
         {
+            this.apiService = new ApiService();
+            
             this.IsRemembered = true;
             this.IsEnabled = true;
 
-            this.Email = "jerodrig001@gmail.com";
-            this.Password = "1234";
+            //this.Email = "jerodrig001@gmail.com";
+            //this.Password = "lalito1807";
         }
         #endregion
 
@@ -89,9 +96,9 @@ namespace Lands.ViewModels
             if (string.IsNullOrEmpty(this.Email))
             {
                 await Application.Current.MainPage.DisplayAlert(
-                    "Error",
-                    "Introduzca E-mail.",
-                    "Accept");
+                    Languages.Error,
+                    Languages.EmailValidation,
+                    Languages.Accept);
                 return;
             }
 
@@ -99,34 +106,74 @@ namespace Lands.ViewModels
             {
                 await Application.Current.MainPage.DisplayAlert(
                     "Error",
-                    "Introduzca Contraseña.",
-                    "Accept");
+                    "Enter password.",
+                    "Aceptar");
                 return;
             }
 
             this.IsRunning = true;
             this.IsEnabled = false;
 
-            if (this.Email != "jerodrig001@gmail.com" || this.Password != "1234")
+            var connection = await this.apiService.CheckConnection();
+
+            if (!connection.IsSuccess)
             {
                 this.IsRunning = false;
                 this.IsEnabled = true;
                 await Application.Current.MainPage.DisplayAlert(
                     "Error",
-                    "E-mail o Contraseña erroneos.",
+                    connection.Message,
                     "Accept");
+                return;
+            }
+
+            var token = await this.apiService.GetToken(
+                "http://lands.api.controldeestimaciones.com/",
+                this.Email,
+                this.Password);
+
+            if (token == null)
+            {
+                this.IsRunning = false;
+                this.IsEnabled = true;
+                await Application.Current.MainPage.DisplayAlert(
+                    "Error",
+                    "Something went wrong, try again.",
+                    "Accept");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(token.AccessToken))
+            {
+                this.IsRunning = false;
+                this.IsEnabled = true;
+                await Application.Current.MainPage.DisplayAlert(
+                    "Error",
+                    token.ErrorDescription,
+                    "Aceptar");
                 this.Password = string.Empty;
                 return;
             }
+
+            var mainViewModel = MainViewModel.GetInstance();
+            mainViewModel.Token = token.AccessToken;
+            mainViewModel.TokenType = token.TokenType;
+
+            if (this.IsRemembered)
+            {
+                Settings.Token = token.AccessToken;
+                Settings.TokenType = token.TokenType;
+            }
+
+            mainViewModel.Lands = new LandsViewModel();
+            Application.Current.MainPage = new MasterPage();
+            //await Application.Current.MainPage.Navigation.PushAsync(new LandsPage());
 
             this.IsRunning = false;
             this.IsEnabled = true;
 
             this.Email = string.Empty;
             this.Password = string.Empty;
-
-            MainViewModel.GetInstance().Lands = new LandsViewModel();
-            await Application.Current.MainPage.Navigation.PushAsync(new LandsPage());
         }
         #endregion
     }

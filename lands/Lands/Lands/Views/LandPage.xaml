@@ -1,17 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:i18n="clr-namespace:Lands.Helpers"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+             xmlns:ffimageloadingsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
              x:Class="Lands.Views.LandPage"
              BindingContext="{Binding Main, Source={StaticResource Locator}}"
              Icon="ic_information"
-             Title="Información General">
+             Title="{i18n:Translate Text=GeneralInformation}"
+             >
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <ffimageloadingsvg:SvgImageSourceConverter 
+                x:Key="SvgImageSourceConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <ScrollView
             BindingContext="{Binding Land}">
-            
             <StackLayout
                 Padding="5">
                 <Label
@@ -21,6 +31,10 @@
                     Text="{Binding Land.Name}"
                     TextColor="Black">
                 </Label>
+                <ffimageloading:CachedImage 
+                    Margin="50,0,50,0"
+                    Source="{Binding Land.Flag, Converter={StaticResource SvgImageSourceConverter}}">
+                </ffimageloading:CachedImage>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -42,7 +56,7 @@
                     <Label
                         Grid.Column="0"
                         Grid.Row="1"
-                        Text="Population:"
+                        Text="{i18n:Translate Text=Population}"
                         TextColor="Black">
                     </Label>
                     <Label
@@ -55,7 +69,7 @@
                     <Label
                         Grid.Column="0"
                         Grid.Row="2"
-                        Text="Area:"
+                        Text="{i18n:Translate Text=Area}"
                         TextColor="Black">
                     </Label>
                     <Label
@@ -68,7 +82,7 @@
                     <Label
                         Grid.Column="0"
                         Grid.Row="3"
-                        Text="AlphaCode2:"
+                        Text="{i18n:Translate Text=AlphaCode2}"
                         TextColor="Black">
                     </Label>
                     <Label
@@ -81,7 +95,7 @@
                     <Label
                         Grid.Column="0"
                         Grid.Row="4"
-                        Text="AlphaCode3:"
+                        Text="{i18n:Translate Text=AlphaCode3}"
                         TextColor="Black">
                     </Label>
                     <Label
@@ -94,7 +108,7 @@
                     <Label
                         Grid.Column="0"
                         Grid.Row="5"
-                        Text="Region:"
+                        Text="{i18n:Translate Text=Region}"
                         TextColor="Black">
                     </Label>
                     <Label
@@ -107,7 +121,7 @@
                     <Label
                         Grid.Column="0"
                         Grid.Row="6"
-                        Text="Subregion:"
+                        Text="{i18n:Translate Text=Subregion}"
                         TextColor="Black">
                     </Label>
                     <Label
@@ -120,7 +134,7 @@
                     <Label
                         Grid.Column="0"
                         Grid.Row="7"
-                        Text="Demonym:"
+                        Text="{i18n:Translate Text=Denomination}"
                         TextColor="Black">
                     </Label>
                     <Label
@@ -133,7 +147,7 @@
                     <Label
                         Grid.Column="0"
                         Grid.Row="8"
-                        Text="GINI:"
+                        Text="{i18n:Translate Text=GINI}"
                         TextColor="Black">
                     </Label>
                     <Label
@@ -146,7 +160,7 @@
                     <Label
                         Grid.Column="0"
                         Grid.Row="9"
-                        Text="NativeName:"
+                        Text="{i18n:Translate Text=NativeName}"
                         TextColor="Black">
                     </Label>
                     <Label
@@ -159,7 +173,7 @@
                     <Label
                         Grid.Column="0"
                         Grid.Row="10"
-                        Text="NumericCode:"
+                        Text="{i18n:Translate Text=NumericCode}"
                         TextColor="Black">
                     </Label>
                     <Label
@@ -172,7 +186,7 @@
                     <Label
                         Grid.Column="0"
                         Grid.Row="11"
-                        Text="CIOC:"
+                        Text="CIOC"
                         TextColor="Black">
                     </Label>
                     <Label

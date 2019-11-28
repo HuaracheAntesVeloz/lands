@@ -10,7 +10,7 @@ namespace Lands.Services
     using Models;
     using Newtonsoft.Json;
     using Plugin.Connectivity;
-    //using Domain;
+    using Domain;
 
     public class ApiService
     {
@@ -50,8 +50,10 @@ namespace Lands.Services
         {
             try
             {
-                var client = new HttpClient();
-                client.BaseAddress = new Uri(urlBase);
+                var client = new HttpClient()
+                {
+                    BaseAddress = new Uri(urlBase)
+                };
                 var response = await client.PostAsync("Token",
                     new StringContent(string.Format(
                     "grant_type=password&username={0}&password={1}",
@@ -124,8 +126,11 @@ namespace Lands.Services
         {
             try
             {
-                var client = new HttpClient();
-                client.BaseAddress = new Uri(urlBase);
+                var client = new HttpClient()
+                {
+                    BaseAddress = new Uri(urlBase)
+                };
+                
                 var url = string.Format("{0}{1}", servicePrefix, controller);
                 var response = await client.GetAsync(url);
                 var result = await response.Content.ReadAsStringAsync();
@@ -311,8 +316,10 @@ namespace Lands.Services
                     request,
                     Encoding.UTF8,
                     "application/json");
-                var client = new HttpClient();
-                client.BaseAddress = new Uri(urlBase);
+                var client = new HttpClient()
+                {
+                    BaseAddress = new Uri(urlBase)
+                };
                 var url = string.Format("{0}{1}", servicePrefix, controller);
                 var response = await client.PostAsync(url, content);
 
@@ -406,8 +413,10 @@ namespace Lands.Services
         {
             try
             {
-                var client = new HttpClient();
-                client.BaseAddress = new Uri(urlBase);
+                var client = new HttpClient()
+                { 
+                    BaseAddress = new Uri(urlBase)
+                };
                 client.DefaultRequestHeaders.Authorization =
                     new AuthenticationHeaderValue(tokenType, accessToken);
                 var url = string.Format(
